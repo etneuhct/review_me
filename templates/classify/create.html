@@ -1,0 +1,29 @@
+{% load index %}
+
+<h2>Review</h2>
+<form method="post">
+    <table style="width:100%">
+        <tr>
+            <th>Phrase</th>
+            <th>Mot</th>
+            <th>Position</th>
+            <th>Inclusif</th>
+        </tr>
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {% with object=object_list|index:forloop.counter0 %}
+                <tr>
+                    {% with sentence=object.sentence.sentence|custom_slice:object %}
+                    <td>{{ sentence.0 }}<span style="color: red">{{ sentence.1 }}</span>{{ sentence.2 }}</td>
+                    {% endwith %}
+                    <td>{{ object.word }}</td>
+                    <td>{{ object.position }}</td>
+                    <td>{{ form.category }}</td>
+                    {{ form.word.as_hidden }}
+                </tr>
+            {% endwith %}
+        {% endfor %}
+    </table>
+    <input type="submit" value="submit">
+</form>
