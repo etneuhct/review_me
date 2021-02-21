@@ -17,6 +17,7 @@ class Text(models.Model):
 class Sentence(models.Model):
     sentence = models.TextField()
     text = models.ForeignKey("Text", on_delete=models.CASCADE)
+    sentenceId = models.IntegerField(default=0)
 
 
 class Word(models.Model):
