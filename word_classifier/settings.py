@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,11 +78,11 @@ WSGI_APPLICATION = 'word_classifier.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+engine = os.environ.get('REVIEWME_DB_ENGINE', None)
+if engine is not None and engine != 'django_cockroachdb':
+    engine = None
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default='sqlite:///{}'.format(BASE_DIR.joinpath('db.sqlite3')), engine=engine)
 }
 
 
