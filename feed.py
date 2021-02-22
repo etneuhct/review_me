@@ -3,13 +3,14 @@ import os
 import time
 
 import django
+import gspread
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'word_classifier.settings'
 django.setup()
 
+from django.conf import settings
+
 from classifyme.models import *
-from word_classifier import gsheet_client
-from word_classifier import gspread
 
 
 def feed_to_db(element):
@@ -32,6 +33,7 @@ def feed_from_csv():
             line_count += 1
 
 def feed_from_sheets():
+    gsheet_client = gspread.service_account(os.environ.get('REVIEWME_GOOGLE_KEYFILE', os.path.join(settings.BASE_DIR, 'googlesheets_key.json')))
     sheet = gsheet_client.open_by_key('1jj2Ha1PliKgJbrjgX65rroVU8118AzZ-DcbJLox-WCI').sheet1
     i = 2
     t0 = time.monotonic()
