@@ -80,3 +80,10 @@ class WordReviewerConflictView(LoginRequiredMixin, ListView):
             return redirect("review_words_conflict")
         return redirect('login')
 
+
+class WordReviewerListView(LoginRequiredMixin, ListView):
+
+    model = Word
+    template_name = "classify/list.html"
+    paginate_by = 100
+    ordering = 'word'

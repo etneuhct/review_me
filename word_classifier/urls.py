@@ -17,11 +17,12 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 
-from classifyme.views import WordReviewerCreateView, WordReviewerConflictView
+from classifyme.views import WordReviewerCreateView, WordReviewerConflictView, WordReviewerListView
 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     url('review/words/create', WordReviewerCreateView.as_view(), name="review_words_create"),
+    url('review/words/list', WordReviewerListView.as_view(), name="review_words_list"),
     url('review/words/conflict', WordReviewerConflictView.as_view(), name="review_words_conflict")
 ]
