@@ -55,11 +55,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Security (SSL)
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-
 ROOT_URLCONF = 'word_classifier.urls'
 
 TEMPLATES = [
@@ -130,5 +125,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/review/words/create/'
-
-django_heroku.settings(locals(), databases=False)

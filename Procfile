@@ -1,1 +1,1 @@
-web: gunicorn word_classifier.wsgi
+web: gunicorn word_classifier.production_wsgi
