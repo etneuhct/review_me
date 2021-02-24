@@ -6,7 +6,7 @@ user_model = settings.AUTH_USER_MODEL
 
 
 class WordCategory:
-    na, not_inclusive, inclusive = [str(i) for i in range(3)]
+    na, not_inclusive, inclusive, epicene = [str(i) for i in range(4)]
 
 
 class Text(models.Model):
@@ -25,6 +25,7 @@ class Word(models.Model):
     word = models.CharField(max_length=100)
     position = models.IntegerField()
     verdict = models.CharField(max_length=100, null=True, blank=True, choices=(
+        (WordCategory.epicene, 'Epicène'),
         ('conflict', 'conflict'),
         (WordCategory.not_inclusive, "Non Inclusif"),
         (WordCategory.inclusive, "Inclusif"),
@@ -52,10 +53,15 @@ class Word(models.Model):
                 self.verdict = categories[0][0]
                 if self.verdict == WordCategory.na:
                     self.set_na()
+                elif self.verdict == WordCategory.epicene:
+                    self.set_epicene()
             self.save()
 
     def set_na(self):
         Word.objects.filter(word__iexact=self.word).update(verdict=WordCategory.na)
+
+    def set_epicene(self):
+        Word.objects.filter(word__iexact=self.word).update(verdict=WordCategory.epicene)
 
 
 class Review(models.Model):
@@ -64,7 +70,9 @@ class Review(models.Model):
     category = models.CharField(max_length=20, choices=(
         (WordCategory.not_inclusive, "Non Inclusif"),
         (WordCategory.inclusive, "Inclusif"),
-        (WordCategory.na, 'Non Applicable')))
+        (WordCategory.na, 'Non Applicable'),
+        (WordCategory.epicene, 'Epicène'),
+    ))
 
     class Meta:
         unique_together = (('reviewer', 'word'), )
