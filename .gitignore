@@ -42,6 +42,7 @@ debugpy*.log
 pydevd*.log
 nodeLanguageServer/**
 nodeLanguageServer.*/**
+venv
 
 # sqlite
 *.sqlite3
