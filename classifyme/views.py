@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.views.generic import ListView
 
 from classifyme.forms import get_word_reviewer_create_form, WordReviewerCreateFormset, WordFormset
-from classifyme.models import Review, Word
+from classifyme.models import Review, Word, WordCategory
 
 
 class WordReviewerCreateView(LoginRequiredMixin, ListView):
@@ -76,7 +76,10 @@ class WordReviewerConflictView(LoginRequiredMixin, ListView):
                     word = Word.objects.get(pk=word_pk)
                     word.verdict = verdict
                     word.save()
-                    word.set_na()
+                    if verdict == WordCategory.na:
+                        word.set_na()
+                    elif verdict == WordCategory.epicene:
+                        word.set_epicene()
             return redirect("review_words_conflict")
         return redirect('login')
 
