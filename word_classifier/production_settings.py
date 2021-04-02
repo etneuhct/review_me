@@ -1,5 +1,5 @@
 import django_heroku
-from settings import *
+from .settings import *
 
 # Security (SSL)
 
