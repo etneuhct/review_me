@@ -124,3 +124,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/review/words/create/'
+
+# Ne fonctionne pas autrement. Même si on place cette ligne directement dans production_settings
+django_heroku.settings(locals(), databases=False)

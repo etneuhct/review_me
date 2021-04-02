@@ -55,6 +55,4 @@ venv
 *key.json
 *credentials.json
 credentials*.json
-venv/
 .idea/
-.pyc
