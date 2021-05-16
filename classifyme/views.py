@@ -15,7 +15,7 @@ class WordReviewerCreateView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         user = self.request.user
         query = Word.objects.filter(verdict=None).exclude(review__reviewer=user)
-        return query[0:150]
+        return query[0:15]
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context_data = super().get_context_data(object_list=None, **kwargs)
